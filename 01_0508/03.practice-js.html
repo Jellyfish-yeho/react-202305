@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS</title>
+  </head>
+  <body>
+    <h1>getElementById</h1>
+    <p id="demo-a"></p>
+    <hr />
+
+    <h1>getElementByClassName</h1>
+    <div class="example">Element1</div>
+    <div class="example collect">Element2</div>
+    <hr />
+
+    <h1>getElementByTagName</h1>
+    <p>Unordered List</p>
+    <ul>
+      <li>Coffee</li>
+      <li>Tea</li>
+      <li>Milk</li>
+    </ul>
+    <p>The innerHTML of the second li element is :</p>
+    <p style="font-weight: 700" id="demo-c"></p>
+    <hr />
+
+    <h1>Counter</h1>
+    <h3 id="result"></h3>
+    <button id="minus" class="calc">-1</button>
+    <button id="plus" class="calc">+1</button>
+
+    <h1>Input</h1>
+    <input type="text" id="name" />
+  </body>
+  <script>
+    //dom 접근하기
+    const demoA = document.getElementById("demo-a");
+    demoA.innerText = "#DEMO-A";
+
+    const collect = document.getElementsByClassName("example");
+    console.log("Collect", collect);
+    collect[0].innerHTML = "Collect[0]";
+
+    const tags = document.getElementsByTagName("li");
+    console.log("Tags", tags);
+    document.getElementById("demo-c").innerText = tags[1].innerHTML;
+
+    //counter 
+    const plus = document.getElementById("plus");
+    const minus = document.getElementById("minus");
+    const result = document.getElementById("result");
+    const calcBtn = document.getElementsByClassName("calc")
+
+    let counterNum = 0;
+
+    const setCounterNum = () => {result.innerText = counterNum;}
+    setCounterNum();
+    const calcFunc = (event) => {
+        const {target : {value}} = event;
+        const thisItemId = event.target.id
+        switch (thisItemId) {
+            case "plus":
+                counterNum += 1;
+                break;
+            case "minus" :
+                counterNum -= 1;
+                break;
+            default:
+                break;
+        }
+        setCounterNum()
+    }
+
+    for (let i = 0; i < calcBtn.length; i++) {
+        const element = calcBtn[i];
+        element.addEventListener("click", calcFunc)
+    }
+    // calcBtn.addEventListener("click", calcFunc)
+
+    // plus.addEventListener("click", () => {
+    //   const currentVal = Number(result.innerText);
+    //   result.innerText = currentVal + 1;
+    // });
+    // minus.addEventListener("click", () => {
+    //   const currentVal = Number(result.innerText);
+    //   result.innerText = currentVal - 1;
+    // });
+
+    //object와 화살표 함수
+    const obj = {
+      name: "jellyfish",
+      phone: "010-0000-1111",
+      talk: function () {
+        console.log("현재 object 를 호출함", this);
+      },
+      tell: () => {
+        console.log("화살표 함수에서의 this 는 window ", this);
+      },
+    };
+    obj.talk();
+    obj.tell();
+
+    //비구조화할당
+    const onChangeFunction = (event) => {
+      const {
+        target: { value },
+      } = event;
+      console.log(value);
+    };
+    const inputBox = document.getElementById("name");
+    inputBox.addEventListener("input", onChangeFunction);
+
+
+  </script>
+</html>
