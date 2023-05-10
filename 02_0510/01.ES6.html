@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    //========template literal
+    let string1 = "hi!"
+    let string2 = "hello!"
+    let greeting1 = string1 + string2
+    let product = {name:"도서", price: "4000원"}
+    let message = `제품 "${product.name}"의 가격은 ${product.price} 입니다.`
+
+    const root = document.getElementById("root")
+    // root.innerText = greeting1
+    // root.innerText = product.price
+    root.innerText = message
+
+    //========spread
+    let object1 = {one : 1, two:2, three:3, other: 9}
+    let object2 = {three:3, four:4,other:-1}
+    let combinedObj = {
+        ...object1,
+        ...object2
+    }
+    console.log("spread", combinedObj)
+
+    //========concat
+    const arr1 = ['one', 'two']
+    const arr2 = ['three', 'four', 'two']
+    const combinedArr = arr1.concat(arr2)
+    console.log("concat", combinedArr)
+
+    //========push, splice, pop
+    const arr3 = [];
+    arr3.push(1)
+    arr3.splice(0,0,0)
+    arr3.pop()
+    console.log("arr functions", arr3)
+
+    
+    
+</script>
+</html>
