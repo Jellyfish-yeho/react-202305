@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ReactJS 는 어플리케이션이 interactive 하게 해 주는 library. -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <!-- React DOM은 react element들을 html body에 둘 수 있도록 해 줌 -->
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <!-- babel 은 ..?  -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root1"></div>
+    <div id="root2"></div>
+    <div id="root3"></div>
+    <div id="root4"></div>
+</body>
+<script>
+    //====일반 dom삽입
+    const root1 = document.getElementById("root1")
+
+    const headerDom = "<div>header</div>"
+    const mainDom = "<div>main</div>"
+    const productDom = "<div>product</div>"
+    const footerDom = "<div>footer</div>"
+
+    root1.innerHTML = `${headerDom}${mainDom}${productDom}${footerDom}`
+    
+</script>
+<script type="text/babel">
+    //=======react
+    let a=0
+    const root2 = document.getElementById("root2")
+
+    const h1 = React.createElement("h1", {id:"h1", style: {color: "blue"}}, "Total Clicks: 0");
+    const button = React.createElement("button", {onClick: ()=>{a = a+1;console.log(a)}},"Click me!")
+    const container = React.createElement("div", null, [h1, button])
+    ReactDOM.render(container, root2)
+
+    //=======babel + react : jsx
+    const root3 = document.getElementById("root3")
+
+    const header = <div>header</div>
+    const main = <div>main</div>
+    const product = <div>product</div>
+    const footer = <div>footer</div>
+    const login = false
+
+    const body = (
+        <div>
+            {header}
+            {main}
+            {product}
+            {footer}    
+            {login ? "안녕!": "로그인 해"}
+        </div>
+    )
+    ReactDOM.render(body, root3)
+
+    let b = 0
+    const root4 = document.getElementById("root4")
+    const Title = () => (<h1 id="h1" style={{color:"blue"}}>Total Clicks : 0</h1>)
+    const Button = () => (<button onClick={()=>{a=a+1;console.log(a)}}>Click me2!</button>)
+    const Container = () => (<div><Title /><Button /></div>)
+    ReactDOM.render(<Container />, root4)
+
+</script>
+</html>

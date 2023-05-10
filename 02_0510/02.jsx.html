@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ReactJS 는 어플리케이션이 interactive 하게 해 주는 library. -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <!-- React DOM은 react element들을 html body에 둘 수 있도록 해 줌 -->
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <!-- babel 은 ..?  -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+<script type="text/babel">
+    const header = (
+        <header>
+            <h1>Hello world!1</h1>  
+            <nav>
+                <ul>
+                    <li>링크1</li>
+                    <li>링크2</li>
+                </ul>
+            </nav>  
+        </header>
+    )
+    
+    const main = (
+        <main>
+            <h2>Hello world!2</h2>
+            <p>제품 목록</p>
+            <ul>
+                <li>옷1</li>
+                <li>옷2</li>
+            </ul>
+        </main>
+    )
+    const footer = (
+        <footer>
+            <h2>Hello world!3</h2>
+            <address>서울시 도봉구</address>
+        </footer>
+    )
+    const body = (
+        <React.Fragment>
+            {header}
+            {main}
+            {footer}
+        </React.Fragment>
+    )
+
+    const root = document.getElementById("root")
+    ReactDOM.render(body, root)
+
+</script>
+</html>
