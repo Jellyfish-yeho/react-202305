@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <form class="js-toDoForm">
+        <input type="text" name="" id="" placeholder="To-do-list">
+    </form>
+    <ul class="js-toDoList"></ul>
+</body>
+<script>
+    const toDoForm = document.querySelector(".js-toDoForm"),
+            toDoInput = document.querySelector("input")
+            toDoList = document.querySelector(".js-toDoList")
+
+    const TODOS_LS = "toDos"
+
+    let toDos = []
+
+    const deleteToDo = (event) => {
+        const btn = event.target;
+        const li = btn.parentNode;
+        toDoList.removeChild(li);
+        const cleanToDos = toDos.filter((todo)=>todo.id !== parseInt(li.id))
+        toDos = cleanToDos
+        saveToDos()
+    }
+
+    const saveToDos = () => {
+        localStorage.setItem(TODOS_LS, JSON.stringify(toDos))
+    }
+
+    const paintToDo = (text) => {
+        const li = document.createElement("li")
+        const delBtn = document.createElement("button")
+        const span = document.createElement("span")
+        const newId = toDos.length + 1
+        delBtn.innerHTML = "X"
+        delBtn.addEventListener("click", deleteToDo)
+        span.innerText = text
+
+        li.appendChild(delBtn)
+        li.appendChild(span)
+        li.id = newId
+        toDoList.appendChild(li)
+        const toDoObj = {
+            text,
+            id: newId
+        }
+        toDos.push(toDoObj)
+        saveToDos()
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const currentValue = toDoInput.value
+        paintToDo(currentValue)
+        toDoInput.value = ""
+    }
+
+    const loadToDos = () => {
+        const loadToDos = localStorage.getItem(TODOS_LS)
+        if(loadToDos !== null){
+            const parsedToDos = JSON.parse(loadToDos)
+            parsedToDos.forEach((todo)=>{paintToDo(todo)});
+        }
+    }
+
+    const init = () => {
+        loadToDos()
+        toDoForm.addEventListener("submit", handleSubmit)
+    }
+
+    init()
+
+</script>
+</html>
