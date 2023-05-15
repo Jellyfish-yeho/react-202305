@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- React JS는 어플리케이션이 아주 Interactive하도록 만들어주는 library -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <!-- React DOM은 React element들을 HTML body에 둘 수 있도록 해준다 -->
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <!-- 바벨은 JSX를 브라우저가 이해 할 수 있는 형태로 바꾸어 준다 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    ​
+    <title>React State</title>
+  </head>
+  <!-- 함수형 컴포넌트와 바닐라 JS를 혼용 -->
+  <!-- 함수로 선언된 컴포넌트는 태그처럼 꺽쇠(<>)로 묶이고, 변수로 선언된 것들은 중괄호({})로 묶입니다. 중괄호 안에는 JavaScript 표현식(expression)이 그대로 들어갈 수 있습니다. -->
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+
+    const App = () => {
+      const [timeType, setTimeType] = React.useState("second")
+      const [timeVal, setTimeVal] = React.useState(0)
+
+      const onChange = ({target:{value}}) => {
+        setTimeVal( Number(value) )
+      }
+      const convertMinuteToTime = (inputTime) => {
+        console.log('convert', timeType, timeVal)
+        switch (timeType) {
+          case "second":
+            return Math.round(inputTime / 60 / 60) 
+            break;
+          case "minute":
+            return Math.round(inputTime / 60) 
+            break;
+          default:
+            break;
+        }
+      }
+      return (
+        <>
+          <h1>Time Converter!</h1>
+          <select onChange={(e)=>setTimeType(e.target.value)}>
+            <option value="second">Second</option>
+            <option value="minute">Minute</option>
+          </select>
+          <hr />
+          <label>
+            <span>{timeType} : </span>
+            <input type="number" value={timeVal} onChange={onChange}/>
+          </label>
+          
+          <h3>You want to convert {timeVal} {timeType} to : </h3>
+
+          <label>
+            <span>Hours : </span>
+            <input type="number" value={ convertMinuteToTime( Number(timeVal) )} disabled/>
+          </label>
+        </>
+      );
+    };
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
